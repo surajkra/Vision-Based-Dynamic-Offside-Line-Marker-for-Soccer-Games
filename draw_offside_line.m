@@ -1,6 +1,6 @@
 list = dir('I:\CVGA videos\*.mp4');
 video = VideoReader(strcat('I:\CVGA videos\',list(9).name));
-for i = 1:500
+for i = 1:100
 a = video.readFrame();
 end
 imshow(a)
@@ -27,9 +27,16 @@ for p = 1 : size(points,1)/2
        vp = vp + inv(A)*b;
    end
 end
-vp = int16(vp / count);
+vp = vp / count;
 imshow(a)
 hold on 
 [x1,y1] = getpts;
-plot([x1,vp(1)],[y1 ,vp(2)],'y','LineWidth',3)
+ly = size(a,1);
+slope = (vp(2) - y1)/(vp(1) - x1);
+y_int = - x1 * slope + y1;
+lx = (ly - y_int)/slope;
+plot([lx,vp(1)],[ly ,vp(2)],'y','LineWidth',1)
+
+
+
 
