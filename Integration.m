@@ -77,7 +77,7 @@ for frame_index = 1 : 5000 %fill in the appropriate number
     if(size(S,1)==0)
         continue
     end
-%%  Mark the Team-Players
+%%  M ark the Team-Players
     Team_Ids = get_team_ids(Final,S,A);
 %% Mark the bounding boxes
     f = figure('visible','off');    
