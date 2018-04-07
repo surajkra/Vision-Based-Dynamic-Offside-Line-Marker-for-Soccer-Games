@@ -7,13 +7,17 @@ v = VideoWriter('v_1','MPEG-4');
 open(v);
 for frame_index = 1 : 600 %fill in the appropriate number
     disp(frame_index)
+    if(exist('img'))
+        prev_img = img;
+    end
     img = readFrame(obj);
-    if(frame_index<39)
+    
+    if(frame_index<439)
         continue
     end
     
 
-    if(frame_index==39)
+    if(frame_index==439)
         imshow(img)
         [x,y] = getpts;
         points = [x,y];
@@ -41,18 +45,69 @@ for frame_index = 1 : 600 %fill in the appropriate number
         continue
     end
     
-    if(frame_index~=601 && mod(frame_index,20)~=0)
-        f = figure('visible','off');    
-        figure();
+    if(frame_index~=601 && mod(frame_index,10)~=0)
+%         f = figure('visible','off');    
+%         figure();
+%         imshow(img)
+%         hold on;
+%         for i =1:size(S,1)
+%             BB = S(i).BoundingBox;
+%              if(A(i).Area < 4000 && A(i).Area > 650 && BB(3) < 110 && BB(4) < 110 && BB(3) > 20 && BB(4) > 20 && Team_Ids(i)~=0  && BB(1)>=temp_max)
+%                 rectangle('Position',[BB(1),BB(2),BB(3),BB(4)],...
+%                 'LineWidth',2,'EdgeColor','red')
+%                 if(Team_Ids(i)==1)
+%                     text(BB(1)-2, BB(2)-2,'A');
+%                 end
+%                 if(Team_Ids(i)==2)
+%                     text(BB(1)-2, BB(2)-2,'D');
+%                 end
+% 
+%                 if(Team_Ids(i)==3)
+%                     text(BB(1)-2, BB(2)-2,'GK');
+%                 end
+% 
+%              end
+%         end
+%         plot([left_most,vp(1)],[ly ,vp(2)],'y','LineWidth',1)
+    f = figure('visible','off');    
         imshow(img)
-        hold on;
-        for i =1:size(S,1)
+        for i = 1:size(S,1)
             BB = S(i).BoundingBox;
-             if(A(i).Area < 4000 && A(i).Area > 650 && BB(3) < 110 && BB(4) < 110 && BB(3) > 20 && BB(4) > 20 && Team_Ids(i)~=0  && BB(1)>=temp_max)
-                rectangle('Position',[BB(1),BB(2),BB(3),BB(4)],...
-                'LineWidth',2,'EdgeColor','red')
+            if(A(i).Area < 4000 && A(i).Area > 650 && BB(3) < 110 && BB(4) < 110 && BB(3) > 20 && BB(4) > 20 && Team_Ids(i)~=0  && BB(1)>=temp_max )
+                if(S(i).BoundingBox(1)<1)
+                    S(i).BoundingBox(1) = 1;
+                    BB(1) = S(i).BoundingBox(1);
+                end
+                if(S(i).BoundingBox(2)<1)
+                    S(i).BoundingBox(2) = 1;
+                    BB(2) = S(i).BoundingBox(2);
+                end
+                if(S(i).BoundingBox(1)+BB(3)>size(img,2))
+                    S(i).BoundingBox(3) = size(img,2)-S(i).BoundingBox(1);
+                    BB(3) = S(i).BoundingBox(3);
+                end
+                if(S(i).BoundingBox(2)+BB(4)>size(img,1))
+                    S(i).BoundingBox(4) = size(img,1)-S(i).BoundingBox(2);
+                    BB(4) = S(i).BoundingBox(4);
+                end
+                points = detectMinEigenFeatures(rgb2gray(prev_img),'ROI',S(i).BoundingBox);
+                pointImage = insertMarker(prev_img,points.Location,'+','Color','white');
+                tracker = vision.PointTracker('MaxBidirectionalError',1);
+                initialize(tracker,points.Location,prev_img);         
+                frame = img;
+                [points, validity] = step(tracker,frame);
+                mean_x = mean(points(:,1));
+                mean_y = mean(points(:,2));
+                S(i).BoundingBox(1) = floor(mean_x - BB(3)/2);
+                S(i).BoundingBox(2) = floor(mean_y - BB(4)/2);
+                S(i).BoundingBox(3) = BB(3);
+                S(i).BoundingBox(4) = BB(4);
+                img1 = insertMarker(frame,points(validity, :),'+');
+                hold on;
+                rectangle('Position',[S(i).BoundingBox(1),S(i).BoundingBox(2),S(i).BoundingBox(3),S(i).BoundingBox(4)],...
+                        'LineWidth',2,'EdgeColor','red')
                 if(Team_Ids(i)==1)
-                    text(BB(1)-2, BB(2)-2,'A');
+                text(BB(1)-2, BB(2)-2,'A');
                 end
                 if(Team_Ids(i)==2)
                     text(BB(1)-2, BB(2)-2,'D');
@@ -61,8 +116,16 @@ for frame_index = 1 : 600 %fill in the appropriate number
                 if(Team_Ids(i)==3)
                     text(BB(1)-2, BB(2)-2,'GK');
                 end
-
-             end
+                x1 = floor(BB(1) + BB(3)/2);
+                y1 = floor(BB(2) + BB(4));
+                ly = size(img,1);
+                slope = (vp(2) - y1)/(vp(1) - x1);
+                y_int = - x1 * slope + y1;
+                lx = (ly - y_int)/slope;
+                if(lx<left_most && Team_Ids(i) == 1)
+                 left_most = lx;
+                end
+            end
         end
         plot([left_most,vp(1)],[ly ,vp(2)],'y','LineWidth',1)
         fig = getframe(gcf);
@@ -70,6 +133,9 @@ for frame_index = 1 : 600 %fill in the appropriate number
         close(gcf);
         continue;
     end
+    
+    
+    
     BW_img = rgb2gray(img);
     Edge_img = edge(BW_img,'sobel');
 %% Removing the TOP Boundary
