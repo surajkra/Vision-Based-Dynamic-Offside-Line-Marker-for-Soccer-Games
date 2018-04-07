@@ -44,9 +44,21 @@ for frame_index = 1 : 500 %fill in the appropriate number
         for i = 1:size(S,1) 
             if(S(i).BoundingBox(3) < 110 && S(i).BoundingBox(4) < 110 && S(i).BoundingBox(3) > 20 && S(i).BoundingBox(4) > 20 )
             BB = S(i).BoundingBox;
+            if(S(i).BoundingBox(1)<1)
+                S(i).BoundingBox(1) = 1;
+                BB(1) = S(i).BoundingBox(1);
+            end
+            if(S(i).BoundingBox(2)<1)
+                S(i).BoundingBox(2) = 1;
+                BB(2) = S(i).BoundingBox(2);
+            end
             if(S(i).BoundingBox(1)+BB(3)>size(img,2))
                 S(i).BoundingBox(3) = size(img,2)-S(i).BoundingBox(1);
-                BB(3) =S(i).BoundingBox(3);
+                BB(3) = S(i).BoundingBox(3);
+            end
+            if(S(i).BoundingBox(2)+BB(4)>size(img,1))
+                S(i).BoundingBox(4) = size(img,1)-S(i).BoundingBox(2);
+                BB(4) = S(i).BoundingBox(4);
             end
             points = detectMinEigenFeatures(rgb2gray(prev_img),'ROI',S(i).BoundingBox);
             pointImage = insertMarker(prev_img,points.Location,'+','Color','white');
