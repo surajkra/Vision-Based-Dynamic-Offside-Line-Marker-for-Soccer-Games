@@ -18,34 +18,36 @@ for frame_index = 1 : 600 %fill in the appropriate number
     
 
     if(frame_index==39)
-        imshow(img)
-        [x,y] = getpts;
-        points = [x,y];
-        close all
-        m = zeros(size(points,1)/2,1);
-        c = zeros(size(points,1)/2,1);
-        k = 1;
-        vp = zeros(2,1);
-        for j = 1:2:size(points,1)
-            m(k) = (points(j+1,2) - points(j,2))/ (points(j+1,1) - points(j,1));
-            c(k) = - points(j,1) * m(k) + points(j,2);
-            k = k+1;
-        end
-        count = 0;
-        for p = 1 : size(points,1)/2
-
-           for q = p+1 : size(points,1)/2
-               count = count + 1;
-               A = [-m(p),1;-m(q),1];
-               b = [c(p);c(q)];
-               vp = vp + inv(A)*b;
-           end
-        end
-        vp = int16(vp / count);
+%         imshow(img)
+%         [x,y] = getpts;
+%         points = [x,y];
+%         close all
+%         m = zeros(size(points,1)/2,1);
+%         c = zeros(size(points,1)/2,1);
+%         k = 1;
+%         vp = zeros(2,1);
+%         for j = 1:2:size(points,1)
+%             m(k) = (points(j+1,2) - points(j,2))/ (points(j+1,1) - points(j,1));
+%             c(k) = - points(j,1) * m(k) + points(j,2);
+%             k = k+1;
+%         end
+%         count = 0;
+%         for p = 1 : size(points,1)/2
+% 
+%            for q = p+1 : size(points,1)/2
+%                count = count + 1;
+%                A = [-m(p),1;-m(q),1];
+%                b = [c(p);c(q)];
+%                vp = vp + inv(A)*b;
+%            end
+%         end
+%         vp = int16(vp / count);
+%         disp(vp)
+       vp = [935;-1115];
         continue
     end
     
-    if(frame_index~=601 && mod(frame_index,10)~=0)
+    if(frame_index>40 && mod(frame_index,20)~=0)
 %         f = figure('visible','off');    
 %         figure();
 %         imshow(img)
@@ -69,57 +71,59 @@ for frame_index = 1 : 600 %fill in the appropriate number
 %              end
 %         end
 %         plot([left_most,vp(1)],[ly ,vp(2)],'y','LineWidth',1)
-    f = figure('visible','off');
+    %f = figure('visible','off');
         imshow(img)
         left_most = 9999;
         for i = 1:size(S,1)
             BB = S(i).BoundingBox;
-            if(S(i).BoundingBox(1)<1)
-                S(i).BoundingBox(1) = 1;
-                BB(1) = S(i).BoundingBox(1);
-            end
-            if(S(i).BoundingBox(2)<1)
-                S(i).BoundingBox(2) = 1;
-                BB(2) = S(i).BoundingBox(2);
-            end
-            if(S(i).BoundingBox(1)+BB(3)>size(img,2))
-                S(i).BoundingBox(3) = size(img,2)-S(i).BoundingBox(1);
-                BB(3) = S(i).BoundingBox(3);
-            end
-            if(S(i).BoundingBox(2)+BB(4)>size(img,1))
-                S(i).BoundingBox(4) = size(img,1)-S(i).BoundingBox(2);
-                BB(4) = S(i).BoundingBox(4);
-            end
-            points = detectMinEigenFeatures(rgb2gray(prev_img),'ROI',S(i).BoundingBox);
-            pointImage = insertMarker(prev_img,points.Location,'+','Color','white');
-            tracker = vision.PointTracker('MaxBidirectionalError',1);
-            initialize(tracker,points.Location,prev_img);         
-            frame = img;
-            [points, validity] = step(tracker,frame);
-            mean_x = mean(points(:,1));
-            mean_y = mean(points(:,2));
-            S(i).BoundingBox(1) = floor(mean_x - BB(3)/2);
-            S(i).BoundingBox(2) = floor(mean_y - BB(4)/2);
-            S(i).BoundingBox(3) = BB(3);
-            S(i).BoundingBox(4) = BB(4);
-            img1 = insertMarker(frame,points(validity, :),'+');
-            hold on;
-            rectangle('Position',[S(i).BoundingBox(1),S(i).BoundingBox(2),S(i).BoundingBox(3),S(i).BoundingBox(4)],...
-                    'LineWidth',2,'EdgeColor','red')
-            if(Team_Ids(i)==1)
-            text(BB(1)-2, BB(2)-2,'D');
-            end
-            if(Team_Ids(i)==2)
-                text(BB(1)-2, BB(2)-2,'A');
-            end
-            x1 = floor(BB(1) + BB(3)/2);
-            y1 = floor(BB(2) + BB(4));
-            ly = size(img,1);
-            slope = (vp(2) - y1)/(vp(1) - x1);
-            y_int = - x1 * slope + y1;
-            lx = (ly - y_int)/slope;
-            if(lx<left_most && Team_Ids(i) == 1)
-             left_most = lx;
+            if(( BB(1)+(BB(3)/2)<115 || BB(1)+(BB(3)/2)>130) && (BB(2)+(BB(4)/2)<990 || BB(2)+(BB(4)/2)>1010))
+                if(S(i).BoundingBox(1)<1)
+                    S(i).BoundingBox(1) = 1;
+                    BB(1) = S(i).BoundingBox(1);
+                end
+                if(S(i).BoundingBox(2)<1)
+                    S(i).BoundingBox(2) = 1;
+                    BB(2) = S(i).BoundingBox(2);
+                end
+                if(S(i).BoundingBox(1)+BB(3)>size(img,2))
+                    S(i).BoundingBox(3) = size(img,2)-S(i).BoundingBox(1);
+                    BB(3) = S(i).BoundingBox(3);
+                end
+                if(S(i).BoundingBox(2)+BB(4)>size(img,1))
+                    S(i).BoundingBox(4) = size(img,1)-S(i).BoundingBox(2);
+                    BB(4) = S(i).BoundingBox(4);
+                end
+                points = detectMinEigenFeatures(rgb2gray(prev_img),'ROI',S(i).BoundingBox);
+                pointImage = insertMarker(prev_img,points.Location,'+','Color','white');
+                tracker = vision.PointTracker('MaxBidirectionalError',1);
+                initialize(tracker,points.Location,prev_img);         
+                frame = img;
+                [points, validity] = step(tracker,frame);
+                mean_x = mean(points(:,1));
+                mean_y = mean(points(:,2));
+                S(i).BoundingBox(1) = floor(mean_x - BB(3)/2);
+                S(i).BoundingBox(2) = floor(mean_y - BB(4)/2);
+                S(i).BoundingBox(3) = BB(3);
+                S(i).BoundingBox(4) = BB(4);
+                img1 = insertMarker(frame,points(validity, :),'+');
+                hold on;
+                rectangle('Position',[S(i).BoundingBox(1),S(i).BoundingBox(2),S(i).BoundingBox(3),S(i).BoundingBox(4)],...
+                        'LineWidth',2,'EdgeColor','red')
+                if(Team_Ids(i)==1)
+                text(BB(1)-2, BB(2)-2,'D_T');
+                end
+                if(Team_Ids(i)==2)
+                    text(BB(1)-2, BB(2)-2,'A_T');
+                end
+                x1 = floor(BB(1) + BB(3)/2);
+                y1 = floor(BB(2) + BB(4));
+                ly = size(img,1);
+                slope = (vp(2) - y1)/(vp(1) - x1);
+                y_int = - x1 * slope + y1;
+                lx = (ly - y_int)/slope;
+                if(lx<left_most && Team_Ids(i) == 1)
+                 left_most = lx;
+                end
             end
         end
         plot([left_most,vp(1)],[ly ,vp(2)],'y','LineWidth',1)
@@ -305,14 +309,15 @@ for frame_index = 1 : 600 %fill in the appropriate number
     %f = figure('visible','off');    
     figure();
     imshow(img)
+    hold on;
     left_most = 9999;
     for i =1:size(S,1)
         BB = S(i).BoundingBox;
-         if(BB(1)+(BB(3)/2)<115 && BB(1)+(BB(3)/2)>130 && BB(2)+(BB(4)/2)<990 && BB(2)+(BB(4)/2)>1010)
+         if(( BB(1)+(BB(3)/2)<115 || BB(1)+(BB(3)/2)>130) || (BB(2)+(BB(4)/2)<990 || BB(2)+(BB(4)/2)>1010))
             
             if(Team_Ids(i)==1)
                 text(BB(1)-2, BB(2)-2,'D');
-                BB(4)  = 2*BB(4);
+                BB(4)  = 1.5*BB(4);
                 S(i).BoundingBox(4) = BB(4);
             end
             if(Team_Ids(i)==2)
@@ -334,7 +339,7 @@ for frame_index = 1 : 600 %fill in the appropriate number
          end
          
     end
-    plot([left_most,vp(1)],[ly ,vp(2)],'y','LineWidth',1)
+    plot([left_most,vp(1)],[ly ,vp(2)],'c','LineWidth',1)
     fig = getframe(gcf);
     writeVideo(v,fig);
     close(gcf);
