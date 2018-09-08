@@ -25,10 +25,16 @@ Due to the unavailability of specific datasets, we have implemented and evaluate
 ![Dropouts](https://github.com/surajkra/Vision-Based-Dynamic-Offside-Line-Marker-for-Soccer-Games/blob/master/Images/Workflow.png)
 
 
-!
+
 | Input Video   | Cropped Field of Play|
 | ------------- |:-------------:|
 |  !<img src="https://github.com/surajkra/Vision-Based-Dynamic-Offside-Line-Marker-for-Soccer-Games/blob/master/Images/Hough_Input.gif" width="400">   | <img src="https://github.com/surajkra/Vision-Based-Dynamic-Offside-Line-Marker-for-Soccer-Games/blob/master/Images/Hough_Output.gif" width="400"> |
+
+| Tables        | Are           | Cool  |
+| ------------- |:-------------:| -----:|
+| col 3 is      | right-aligned | $1600 |
+| col 2 is      | centered      |   $12 |
+| zebra stripes | are neat      |    $1 |
 
 ### Identifying the Field Boundaries using Hough Transform
 ![Dropouts](https://github.com/surajkra/Vision-Based-Dynamic-Offside-Line-Marker-for-Soccer-Games/blob/master/Images/Hough_Input.gif){:height="50%" width="50%"}
