@@ -22,4 +22,4 @@ the probable offside regions.
 Due to the unavailability of specific datasets, we have implemented and evaluated our algorithms on FIFA 16 game videos with a standard camera setting.
 
 ### Algorithmic Workflow
-![Dropouts](https://github.com/surajkra/Vision-Based-Dynamic-Offside-Line-Marker-for-Soccer-Games/tree/master/Images/Workflow.png)
+![Dropouts](https://github.com/surajkra/Vision-Based-Dynamic-Offside-Line-Marker-for-Soccer-Games/blob/master/Images/Workflow.png)
