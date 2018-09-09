@@ -29,7 +29,10 @@ Due to the unavailability of specific datasets, we have implemented and evaluate
 | ------------- |:-------------:|
 |  <img src="https://github.com/surajkra/Vision-Based-Dynamic-Offside-Line-Marker-for-Soccer-Games/blob/master/Images/Hough_Input.gif" width="400">   | <img src="https://github.com/surajkra/Vision-Based-Dynamic-Offside-Line-Marker-for-Soccer-Games/blob/master/Images/Hough_Output.gif" width="400"> |
 |  <img src="https://github.com/surajkra/Vision-Based-Dynamic-Offside-Line-Marker-for-Soccer-Games/blob/master/Images/Input_Aud.PNG" width="400">   | <img src="https://github.com/surajkra/Vision-Based-Dynamic-Offside-Line-Marker-for-Soccer-Games/blob/master/Images/Output_Aud.PNG" width="400"> |
-
+### Localizing Players within the Field of Play
 | Input Video | Identifying Attacking Team  | Localizing player locations|
 | ------------- |:-------------:|:-------------:|
 |  <img src="https://github.com/surajkra/Vision-Based-Dynamic-Offside-Line-Marker-for-Soccer-Games/blob/master/Images/image10.gif" width="400">   | <img src="https://github.com/surajkra/Vision-Based-Dynamic-Offside-Line-Marker-for-Soccer-Games/blob/master/Images/image14.gif" width="400">   | <img src="https://github.com/surajkra/Vision-Based-Dynamic-Offside-Line-Marker-for-Soccer-Games/blob/master/Images/image15.gif" width="400"> |
+### Tracking the Last Defender
+#### Figure shows the efficient team-wise player classification and tracking of the last defender to determine the dynamic offside position
+<img src="https://github.com/surajkra/Vision-Based-Dynamic-Offside-Line-Marker-for-Soccer-Games/blob/master/Images/image20.gif" width="400">   |
