@@ -29,3 +29,7 @@ Due to the unavailability of specific datasets, we have implemented and evaluate
 | ------------- |:-------------:|
 |  <img src="https://github.com/surajkra/Vision-Based-Dynamic-Offside-Line-Marker-for-Soccer-Games/blob/master/Images/Hough_Input.gif" width="400">   | <img src="https://github.com/surajkra/Vision-Based-Dynamic-Offside-Line-Marker-for-Soccer-Games/blob/master/Images/Hough_Output.gif" width="400"> |
 |  <img src="https://github.com/surajkra/Vision-Based-Dynamic-Offside-Line-Marker-for-Soccer-Games/blob/master/Images/Input_Aud.PNG" width="400">   | <img src="https://github.com/surajkra/Vision-Based-Dynamic-Offside-Line-Marker-for-Soccer-Games/blob/master/Images/Output_Aud.PNG" width="400"> |
+
+| Identifying Attacking Team  | Localizing player locations|
+| ------------- |:-------------:|
+|  <img src="https://github.com/surajkra/Vision-Based-Dynamic-Offside-Line-Marker-for-Soccer-Games/blob/master/Images/image14.gif" width="400">   | <img src="https://github.com/surajkra/Vision-Based-Dynamic-Offside-Line-Marker-for-Soccer-Games/blob/master/Images/image15.gif" width="400"> |
