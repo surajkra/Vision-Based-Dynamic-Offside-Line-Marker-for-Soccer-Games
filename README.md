@@ -37,3 +37,9 @@ Due to the unavailability of specific datasets, we have implemented and evaluate
 ###### Figure shows the efficient team-wise player classification & tracking of the last defender to determine the offside marker
 
 <img src="https://github.com/surajkra/Vision-Based-Dynamic-Offside-Line-Marker-for-Soccer-Games/blob/master/Images/image20.gif" width="800">  
+
+### Marking the Offside Line - Vanishing Points
+
+| Input Video   | Cropped Field of Play|
+| ------------- |:-------------:|
+|  <img src="https://github.com/surajkra/Vision-Based-Dynamic-Offside-Line-Marker-for-Soccer-Games/blob/master/Images/image17.png" width="400">   | <img src="https://github.com/surajkra/Vision-Based-Dynamic-Offside-Line-Marker-for-Soccer-Games/blob/master/Images/image18.png" width="400"> |
