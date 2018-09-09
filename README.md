@@ -42,4 +42,4 @@ Due to the unavailability of specific datasets, we have implemented and evaluate
 
 | Initial Calibration of the Field  | Offside Marker - Last Defender|
 | ------------- |:-------------:|
-|  <img src="https://github.com/surajkra/Vision-Based-Dynamic-Offside-Line-Marker-for-Soccer-Games/blob/master/Images/image17.png" width="800">   | <img src="https://github.com/surajkra/Vision-Based-Dynamic-Offside-Line-Marker-for-Soccer-Games/blob/master/Images/image18.png" width="800"> |
+|  <img src="https://github.com/surajkra/Vision-Based-Dynamic-Offside-Line-Marker-for-Soccer-Games/blob/master/Images/image17.png" width="600">   | <img src="https://github.com/surajkra/Vision-Based-Dynamic-Offside-Line-Marker-for-Soccer-Games/blob/master/Images/image18.png" width="600"> |
