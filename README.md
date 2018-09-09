@@ -47,3 +47,8 @@ Due to the unavailability of specific datasets, we have implemented and evaluate
 | Initial Calibration of the Field  | Offside Marker - Last Defender|
 | ------------- |:-------------:|
 |  <img src="https://github.com/surajkra/Vision-Based-Dynamic-Offside-Line-Marker-for-Soccer-Games/blob/master/Images/image17.png" width="600">   | <img src="https://github.com/surajkra/Vision-Based-Dynamic-Offside-Line-Marker-for-Soccer-Games/blob/master/Images/image18.png" width="600"> |
+
+
+### Implemetation
+
+Run Offside Line Marker.m to implement out work with corresponding input video directory. For accurate results, calibrate the first frame accurately. The program will generate an output video, with frame level details of the offside line.
